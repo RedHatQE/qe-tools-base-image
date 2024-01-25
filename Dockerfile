@@ -1,7 +1,7 @@
 FROM python:3.12
 
 RUN apt-get update \
-  && apt-get install -y ssh gnupg software-properties-common curl gpg wget vim --no-install-recommends \
+  && apt-get install -y ssh gnupg software-properties-common curl gpg vim --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
