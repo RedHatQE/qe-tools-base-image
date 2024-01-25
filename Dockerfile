@@ -29,7 +29,7 @@ RUN curl -s https://api.github.com/repos/stolostron/cm-cli/releases/latest \
     && tar xvf /tmp/cm_linux_amd64.tar.gz --no-same-owner \
     && mv cm /usr/bin/cm
 
-# Install the kubernetes CLI (kubectl)
+# Install regctl
 RUN curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 --output /usr/bin/regctl \
   && chmod +x /usr/bin/regctl
 
