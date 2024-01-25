@@ -25,7 +25,9 @@ RUN curl -s https://api.github.com/repos/stolostron/cm-cli/releases/latest \
   | grep "browser_download_url.*linux_amd64.tar.gz" \
   | cut -d : -f 2,3 \
   | tr -d \" \
-  | curl -L - && tar xvf cm_linux_amd64.tar.gz --no-same-owner && mv cm /usr/bin/cm
+  | xargs curl -L --output /tmp/cm_linux_amd64.tar.gz \
+    && tar xvf /tmp/cm_linux_amd64.tar.gz --no-same-owner \
+    && mv cm /usr/bin/cm
 
 # Install the kubernetes CLI (kubectl)
 RUN curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 --output /usr/bin/regctl \
