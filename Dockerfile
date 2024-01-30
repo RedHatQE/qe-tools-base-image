@@ -1,5 +1,7 @@
 FROM python:3.12
 
+ENV QE_TOOLS_DIR=/qe-tools
+
 RUN apt-get update \
   && apt-get install -y ssh gnupg software-properties-common curl gpg vim --no-install-recommends \
   && apt-get clean \
@@ -26,8 +28,8 @@ RUN curl -s https://api.github.com/repos/stolostron/cm-cli/releases/latest \
   | cut -d : -f 2,3 \
   | tr -d \" \
   | xargs curl -L --output /tmp/cm_linux_amd64.tar.gz \
-    && tar xvf /tmp/cm_linux_amd64.tar.gz --no-same-owner \
-    && mv cm /usr/bin/cm
+  && tar xvf /tmp/cm_linux_amd64.tar.gz --no-same-owner \
+  && mv cm /usr/bin/cm
 
 # Install regctl
 RUN curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 --output /usr/bin/regctl \
@@ -36,3 +38,8 @@ RUN curl -L https://github.com/regclient/regclient/releases/latest/download/regc
 RUN python3 -m pip install --no-cache pip poetry --upgrade \
   && poetry config virtualenvs.in-project true \
   && poetry config installer.max-workers 10
+
+WORKDIR $QE_TOOLS_DIR
+COPY pyproject.toml poetry.lock ${QE_TOOLS_DIR}/
+RUN poetry config cache-dir ${QE_TOOLS_DIR} \
+  && poetry install
