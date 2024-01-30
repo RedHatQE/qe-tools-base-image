@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "qe-tools-base-image"
+version = "0.1.0"
+description = "Container image with QE tools"
+authors = ["Meni Yakove <myakove@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+jira = "^3.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
