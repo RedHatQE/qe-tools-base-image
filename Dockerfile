@@ -42,4 +42,4 @@ RUN python3 -m pip install --no-cache pip poetry --upgrade \
 WORKDIR $QE_TOOLS_DIR
 COPY pyproject.toml poetry.lock ${QE_TOOLS_DIR}/
 RUN poetry config cache-dir ${QE_TOOLS_DIR} \
-  && poetry install
+  && poetry install --no-root
