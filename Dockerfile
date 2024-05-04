@@ -35,6 +35,9 @@ RUN curl -s https://api.github.com/repos/stolostron/cm-cli/releases/latest \
 RUN curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 --output /usr/bin/regctl \
   && chmod +x /usr/bin/regctl
 
+# INstall AWS CLI
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install
+
 RUN python3 -m pip install --no-cache pip poetry --upgrade \
   && poetry config virtualenvs.in-project true \
   && poetry config installer.max-workers 10
