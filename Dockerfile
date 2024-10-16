@@ -1,7 +1,5 @@
 FROM python:3.12
 
-ENV QE_TOOLS_DIR=/qe-tools
-
 RUN apt-get update \
   && apt-get install -y ssh gnupg software-properties-common curl gpg vim --no-install-recommends \
   && apt-get clean \
@@ -38,11 +36,10 @@ RUN curl -L https://github.com/regclient/regclient/releases/latest/download/regc
 # INstall AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install
 
-RUN python3 -m pip install --no-cache pip poetry --upgrade \
-  && poetry config virtualenvs.in-project true \
-  && poetry config installer.max-workers 10
+# Download the latest uv installer
+RUN curl -sSL https://astral.sh/uv/install.sh -o /tmp/uv-installer.sh \
+  && sh /tmp/uv-installer.sh \
+  && rm /tmp/uv-installer.sh
 
-WORKDIR $QE_TOOLS_DIR
-COPY pyproject.toml poetry.lock ${QE_TOOLS_DIR}/
-RUN poetry config cache-dir ${QE_TOOLS_DIR} \
-  && poetry install --no-root
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 -
