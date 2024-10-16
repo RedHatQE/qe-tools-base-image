@@ -1,4 +1,6 @@
-FROM python:3.12
+FROM python:3.12 AS builder
+
+ENV UV_INSTALL_DIR="/usr/"
 
 RUN apt-get update \
   && apt-get install -y ssh gnupg software-properties-common curl gpg vim --no-install-recommends \
@@ -43,3 +45,15 @@ RUN curl -sSL https://astral.sh/uv/install.sh -o /tmp/uv-installer.sh \
 
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# Copy all binaries to the final image
+FROM python:3.12 AS runner
+
+COPY --from=builder /usr/bin/rosa /usr/bin/rosa
+COPY --from=builder /usr/bin/uv /usr/bin/uv
+COPY --from=builder /usr/bin/oc /usr/bin/oc
+COPY --from=builder /usr/bin/kubectl /usr/bin/kubectl
+COPY --from=builder /usr/bin/cm /usr/bin/cm
+COPY --from=builder /usr/bin/regctl /usr/bin/regctl
+COPY --from=builder /usr/local/aws-cli/ /usr/local/aws-cli/
+RUN ln -s /usr/local/aws-cli/v2/current/bin/aws /usr/bin/aws
