@@ -430,12 +430,12 @@ test = ["pytest"]
 
 [[package]]
 name = "python-simple-logger"
-version = "1.0.42"
+version = "2.0.0"
 description = "A simple logger for python"
 optional = false
-python-versions = "<4.0,>=3.8"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "python_simple_logger-1.0.42.tar.gz", hash = "sha256:ad8ffd2019bcf824377d4ac2ac295b29210de0572ac85b45a8e250acf9ca0053"},
+    {file = "python_simple_logger-2.0.0.tar.gz", hash = "sha256:ec8345cde347d026ccd9480cff49fe20df9be8a23b08151883058efc0438f585"},
 ]
 
 [package.dependencies]
@@ -598,4 +598,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "c63f429575350e731f763dd9791ca04c02fcad5a88f02113b8cb7add3bd2d364"
+content-hash = "7570b4831c37a1db28524f8e480d96ade56dd5c99368718e54bccd065498e3ea"
