@@ -1,7 +1,5 @@
 FROM python:3.12 AS builder
 
-ENV UV_INSTALL_DIR="/usr/"
-
 RUN apt-get update \
   && apt-get install -y ssh gnupg software-properties-common curl gpg vim --no-install-recommends \
   && apt-get clean \
@@ -38,19 +36,14 @@ RUN curl -L https://github.com/regclient/regclient/releases/latest/download/regc
 # INstall AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install
 
-# Download the latest uv installer
-RUN curl -sSL https://astral.sh/uv/install.sh -o /tmp/uv-installer.sh \
-  && sh /tmp/uv-installer.sh \
-  && rm /tmp/uv-installer.sh
-
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # Copy all binaries to the final image
 FROM python:3.12 AS runner
 
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/bin/
 COPY --from=builder /usr/bin/rosa /usr/bin/rosa
-COPY --from=builder /usr/bin/uv /usr/bin/uv
 COPY --from=builder /usr/bin/oc /usr/bin/oc
 COPY --from=builder /usr/bin/kubectl /usr/bin/kubectl
 COPY --from=builder /usr/bin/cm /usr/bin/cm
