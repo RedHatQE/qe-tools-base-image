@@ -430,12 +430,12 @@ test = ["pytest"]
 
 [[package]]
 name = "python-simple-logger"
-version = "2.0.9"
+version = "2.0.10"
 description = "A simple logger for python"
 optional = false
 python-versions = "~=3.9"
 files = [
-    {file = "python_simple_logger-2.0.9.tar.gz", hash = "sha256:8ad5c8209abe53dc5c0a07a703ad3d38acd161e6fab3c4efed1516f8772cc4f3"},
+    {file = "python_simple_logger-2.0.10.tar.gz", hash = "sha256:082a98eb374b0a22925d8354ea7515d0d21659f756c29f405dc9ab44c7786617"},
 ]
 
 [package.dependencies]
